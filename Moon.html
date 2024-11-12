@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moonlit Night</title>
+    <style>
+        body {
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #001f33, #000000);
+            position: relative;
+            animation: backgroundAnimation 30s infinite alternate;
+        }
+
+        @keyframes backgroundAnimation {
+            0% {
+                background: linear-gradient(to bottom, #001f33, #000000);
+            }
+            50% {
+                background: linear-gradient(to bottom, #001f33, #1a1a1a);
+            }
+            100% {
+                background: linear-gradient(to bottom, #001f33, #000000);
+            }
+        }
+
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            animation: twinkle 1.5s infinite alternate;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Randomized stars for more variation */
+        .star {
+            animation-duration: calc(1 + (Math.random() * 2))s;
+            opacity: calc(0.2 + Math.random() * 0.8);
+            animation-name: twinkle, moveStar;
+            animation-timing-function: linear;
+            animation-duration: calc(1 + (Math.random() * 2))s, calc(3 + (Math.random() * 4))s;
+        }
+
+        .star:nth-child(1) { top: 20%; left: 20%; width: 4px; height: 4px; background: #ffffe0; }
+        .star:nth-child(2) { top: 40%; left: 70%; width: 5px; height: 5px; background: #ffd700; }
+        .star:nth-child(3) { top: 10%; left: 80%; width: 3px; height: 3px; background: #add8e6; }
+        .star:nth-child(4) { top: 60%; left: 30%; width: 6px; height: 6px; background: #ffb6c1; }
+        .star:nth-child(5) { top: 70%; left: 50%; width: 4px; height: 4px; background: #ff4500; }
+        .star:nth-child(6) { top: 80%; left: 10%; width: 3px; height: 3px; background: #90ee90; }
+        .star:nth-child(7) { top: 30%; left: 90%; width: 5px; height: 5px; background: #fff; }
+        .star:nth-child(8) { top: 50%; left: 40%; width: 4px; height: 4px; background: #ff6347; }
+        .star:nth-child(9) { top: 90%; left: 60%; width: 5px; height: 5px; background: #ffa07a; }
+        .star:nth-child(10) { top: 25%; left: 75%; width: 4px; height: 4px; background: #fff; }
+        .star:nth-child(11) { top: 15%; left: 45%; width: 5px; height: 5px; background: #e0ffff; }
+        .star:nth-child(12) { top: 85%; left: 20%; width: 3px; height: 3px; background: #deb887; }
+        .star:nth-child(13) { top: 60%; left: 10%; width: 4px; height: 4px; background: #ff69b4; }
+        .star:nth-child(14) { top: 75%; left: 80%; width: 5px; height: 5px; background: #00bfff; }
+        .star:nth-child(15) { top: 40%; left: 30%; width: 3px; height: 3px; background: #fff; }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes moveStar {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-1px); }
+            100% { transform: translateY(0); }
+        }
+
+        .moon {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            position: relative;
+            z-index: 2;
+            background: radial-gradient(circle at 30% 30%, #f3f4f6, #cbd5e1);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
+            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.7));
+            animation: glow 5s infinite alternate, moveMoon 10s infinite alternate;
+            top: 10%;  /* Position the moon higher */
+            left: 5%;  /* Adjust position to the left */
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 40px rgba(255, 255, 255, 0.7); }
+            50% { box-shadow: 0 0 60px rgba(255, 255, 255, 1); }
+            100% { box-shadow: 0 0 40px rgba(255, 255, 255, 0.7); }
+        }
+
+        @keyframes moveMoon {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(-5px, -5px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        .moon::before {
+            content: '';
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.4);
+            position: absolute;
+            border-radius: 50%;
+            z-index: -5;
+            animation: move 5s linear infinite;
+        }
+
+        @keyframes move {
+            0% {
+                transform: translate(-30px, 0) scale(0.9);
+                box-shadow: none;
+            }
+            50% {
+                transform: translate(-30px, 0) scale(0.9);
+                box-shadow: 0 0 20px white, 0 0 80px white;
+            }
+            100% {
+                transform: translate(-30px, 0) scale(0.9);
+                box-shadow: none;
+            }
+        }
+
+        .moon::after {
+            content: '';
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            position: absolute;
+            border-radius: 50%;
+            clip-path: ellipse(70% 100% at 50% 50%);
+        }
+
+        /* Clouds */
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: moveClouds 60s linear infinite;
+            filter: blur(2px);
+            opacity: 0.7; /* Make clouds semi-transparent */
+        }
+
+        .cloud:nth-child(1) {
+            width: 100px;
+            height: 60px;
+            top: 10%;
+            left: 20%;
+            animation-duration: 45s;
+        }
+
+        .cloud:nth-child(2) {
+            width: 120px;
+            height: 70px;
+            top: 5%;
+            left: 60%;
+            animation-duration: 50s;
+        }
+
+        .cloud:nth-child(3) {
+            width: 80px;
+            height: 50px;
+            top: 15%;
+            left: 80%;
+            animation-duration: 55s;
+        }
+
+        .cloud:nth-child(4) {
+            width: 150px;
+            height: 90px;
+            top: 30%;
+            left: 10%;
+            animation-duration: 60s;
+            opacity: 0.8;
+        }
+
+        .cloud:nth-child(5) {
+            width: 110px;
+            height: 70px;
+            top: 20%;
+            left: 40%;
+            animation-duration: 55s;
+            opacity: 0.6;
+        }
+
+        @keyframes moveClouds {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100vw); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Increased number of stars -->
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="moon"></div>
+
+    <!-- Clouds -->
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+</body>
+</html>
